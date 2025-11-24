@@ -13,13 +13,10 @@ export default class Cart {
         const existingItem = this._items.get(item.id);
         
         if (existingItem) {
-            // Если товар счетный, увеличиваем количество
             if ('isCountable' in item && (item as CountableBuyable).isCountable === true) {
                 existingItem.quantity += 1;
             }
-            // Если товар не счетный, не делаем ничего (он уже в корзине)
         } else {
-            // Добавляем новый товар с количеством 1
             this._items.set(item.id, { item, quantity: 1 });
         }
     }
@@ -27,7 +24,6 @@ export default class Cart {
     get items(): Buyable[] {
         const result: Buyable[] = [];
         this._items.forEach((cartItem) => {
-            // Для каждого товара добавляем его quantity раз
             for (let i = 0; i < cartItem.quantity; i++) {
                 result.push(cartItem.item);
             }
@@ -58,7 +54,6 @@ export default class Cart {
             if (cartItem.quantity > 1) {
                 cartItem.quantity -= 1;
             } else {
-                // Если количество становится 0, удаляем товар из корзины
                 this._items.delete(id);
             }
         }
