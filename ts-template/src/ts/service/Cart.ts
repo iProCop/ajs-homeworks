@@ -32,11 +32,7 @@ export default class Cart {
     }
 
     getTotalPrice(): number {
-        let total = 0;
-        this._items.forEach((cartItem) => {
-            total += cartItem.item.price * cartItem.quantity;
-        });
-        return total;
+        return Array.from(this._items.values()).reduce((total, cartItem) => total + cartItem.item.price * cartItem.quantity, 0);
     }
 
     getTotalPriceWithDiscount(discount: number): number {
